@@ -1,1 +1,509 @@
 
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Stéphanie Tusveld — CV Intro</title>
+    
+<style>
+:root{
+    --accent:#0b63d6;
+    --bg:#f6f8fb;
+    --card:#ffffff;
+    --muted:#6b7280;
+}
+body{
+    margin:0;
+    background:var(--bg);
+    color:#111827;
+    font-family: Inter,-apple-system,system-ui,sans-serif;
+    padding:28px;
+    -webkit-font-smoothing:antialiased;
+}
+.container{
+    max-width:900px;
+    margin:0 auto;
+    background:var(--card);
+    padding:26px;
+    border-radius:12px;
+    box-shadow:0 8px 30px rgba(0,0,0,0.06);
+}
+
+/* Header */
+header{
+    display:flex;
+    gap:18px;
+    align-items:center;
+
+}/* FOTO */
+.profile{
+    width:75px;
+    height:75px;
+    border-radius:50%;
+    object-fit:cover;
+    border:3px solid var(--accent);
+}
+.title{
+    font-size:20px;
+    font-weight:700;
+    color:var(--accent);
+}
+.subtitle{
+    font-size:14px;
+    color:var(--muted);
+    margin-top:4px;
+    max-width:520px;
+}
+.actions{
+    margin-left:auto;
+    display:flex;
+    gap:8px;
+    align-items:center;
+}
+.btn{
+    border:none;
+    padding:8px 12px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:14px;
+    font-weight:600;
+}
+.btn-lang{
+    background:#e5e7eb;
+    color:#374151;
+}
+.btn-lang.active{
+    background:var(--accent);
+    color:#ffffff;
+}
+.btn-start{
+    background:var(--accent);
+    color:#ffffff;
+}
+
+/* Typing area */
+.typed-text{
+    display:none;
+    margin-top:26px;
+    white-space:pre-wrap;
+    font-family:'Courier New', monospace;
+    font-size:17px;
+    line-height:1.55;
+    color:#0f172a;
+}
+
+/* Sections (opleidingen & werkervaring) */
+.info-section{
+    margin-top:30px;
+    opacity:0;
+    transform:translateX(40px);
+    pointer-events:none;
+}
+.info-section.visible{
+    opacity:1;
+    transform:translateX(0);
+    pointer-events:auto;
+    transition:opacity .6s ease-out, transform .6s ease-out;
+}
+.info-section h2{
+    margin:0 0 10px;
+    font-size:18px;
+    color:#111827;
+}
+.edu-item{
+    font-size:15px;
+    margin-bottom:4px;
+}
+
+/* Experience cards */
+.exp-card{
+    opacity:0;
+    transform:translateX(40px);
+    background:#f1f5f9;
+    border-radius:10px;
+    padding:12px 14px;
+    margin-bottom:10px;
+    box-shadow:0 3px 10px rgba(15,23,42,0.08);
+}
+.exp-card.visible{
+    opacity:1;
+    transform:translateX(0);
+    transition:opacity .6s ease-out, transform .6s ease-out;
+}
+.exp-period{
+    font-size:13px;
+    font-weight:600;
+    color:var(--muted);
+}
+.exp-title{
+    font-size:15px;
+    font-weight:700;
+    margin-top:2px;
+}
+.exp-company{
+    font-size:14px;
+    color:#374151;
+    margin-bottom:4px;
+}
+.exp-desc{
+    font-size:14px;
+    color:#111827;
+}
+
+/* JA/NEE + contact */
+#conversationBlock{
+    display:none;
+    margin-top:32px;
+    font-size:18px;
+}
+#contactInfo{
+    display:none;
+    margin-top:18px;
+    padding:18px;
+    background:#eef2f6;
+    border-radius:8px;
+    box-shadow:0 4px 18px rgba(0,0,0,0.10);
+    font-size:16px;
+}
+</style>
+</head>
+<body>
+<div class="container" role="main">
+
+    <header>
+
+        <img src="??" class="profile">
+
+        <div>
+            <div class="title">Milena Tjalsma-Otten</div>
+            <div class="subtitle">
+                Recruiter · Talent Acquisition · Cyber Security &amp; Tech · Niche recruitment · Leadership · Entrepreneurship
+            </div>
+        </div>
+
+        <div class="actions">
+            <button id="btnNL" class="btn btn-lang active">NL</button>
+            <button id="btnEN" class="btn btn-lang">EN</button>
+            <button id="startBtn" class="btn btn-start">Start intro</button>
+        </div>
+    </header>
+
+    <!-- Typend intro -->
+    <div id="typedText" class="typed-text"></div>
+
+
+    <!-- Werkervaring per bedrijf -->
+    <section id="experienceSection" class="info-section">
+        <h2 id="expTitle"></h2>
+        <div id="experienceList"></div>
+    </section>
+
+     <!-- Opleidingen blok -->
+    <section id="educationSection" class="info-section">
+        <h2 id="eduTitle"></h2>
+        <div id="educationContent"></div>
+    </section>
+
+    <!-- JA / NEE contactvraag -->
+    <div id="conversationBlock">
+        <strong>Wil je met mij in gesprek?</strong><br><br>
+        <button id="yesBtn" class="btn btn-start">Ja</button>
+        <button id="noBtn" class="btn" style="background:#ffffff;border:1px solid #d1d5db;">Nee</button>
+    </div>
+
+    <!-- Contactgegevens -->
+    <div id="contactInfo">
+    <strong>Contactgegevens</strong><br><br>
+    📍 Almelo<br>
+    📞 06-17147676<br>
+    📧 <a href=mailto:stephaniet86@hotmail.com>stephaniet86@hotmail.com</a><br>
+    🔗 <a href=https://www.linkedin.com/in/stephanietusveld/ target="_blank">LinkedIn</a>
+    </div>
+
+</div><!-- /container -->
+
+<script>
+let currentLanguage = "nl";
+
+// INTRO
+const introNL =
+"Welkom!\n\n" +
+"Mijn naam is Stéphanie Tusveld.\n\n" +
+"<strong>Datagedreven HR-adviseur</strong> met brede ervaring in werving & selectie, verzuim, personeelsadvies en teamontwikkeling.\n" +
+"Mijn kracht ligt in het verbinden van mensen en cijfers.\n" +
+"Met Power BI, Excel en AI maak ik HR-data inzichtelijk zodat advies altijd gebaseerd is op feiten.\n\n" +
+"Ik werk met enthousiasme aan digitalisering en procesoptimalisatie en zet mij in voor mensgerichte én resultaatgedreven HR.";
+
+const introEN =
+"Welcome!\n\n" +
+"My name is Stéphanie Tusveld.\n\n" +
+"<strong>Data-driven HR Advisor</strong> with extensive experience in recruitment, absenteeism management, people development and HR analytics.\n" +
+"I combine a strong focus on people with evidence-based decision making using Power BI, Excel and AI tools.\n\n" +
+"Driven by innovation, I continuously improve HR processes to make them more efficient, transparent and human-centered.";
+
+// EXPERIENCE
+const experienceNL = [
+{
+    period:"2020 – heden",
+    title:"HR Adviseur Inhuur Uitzendpersoneel",
+    company:"KPN",
+    desc:"Verbinding tussen stakeholders voor efficiënte inhuur, verzuim en doorstroom. Opstellen van data-analyses in Power BI, advies op basis van HR-data en projectleiding rond automatisering en AI-toepassingen."
+},
+{
+    period:"2015 – 2019",
+    title:"Team Manager Customer Service",
+    company:"KPN",
+    desc:"Leidinggeven aan een team van 25 medewerkers. Focus op klanttevredenheid, kwaliteit, productiviteit, HR-begeleiding, werving en verzuimmanagement."
+}
+];
+
+const experienceEN = [
+{
+    period:"2020 – present",
+    title:"HR Advisor – Contingent Workforce",
+    company:"KPN",
+    desc:"Stakeholder management for hiring, absenteeism and retention. Developing Power BI HR dashboards, providing data-driven advice and leading automation and AI optimisation projects."
+},
+{
+    period:"2015 – 2019",
+    title:"Team Manager Customer Service",
+    company:"KPN",
+    desc:"Managing and coaching a team of 25 employees focused on customer satisfaction, productivity, recruitment and HR performance."
+}
+
+];
+
+// EDUCATION
+const educationNL = [
+"2025 – Microsoft 365 Copilot • Vijfhart",
+"2025 – Microsoft Power BI Data Analyst (PL-300)",
+"2024 – Excel Gevorderd",
+"2024 – Power BI Gevorderd",
+"2016 – Bachelor Psychologie • Open Universiteit",
+"2007 – Small Business & Retail Management • INHolland"
+];
+
+const educationEN = [
+"2025 – Microsoft 365 Copilot",
+"2025 – Microsoft Power BI Data Analyst (PL-300)",
+"Advanced Excel & Power BI",
+"Bachelor Psychology – Open University",
+"Small Business & Retail Management – INHolland"
+];
+
+// Elementen
+const typedText          = document.getElementById("typedText");
+const startBtn           = document.getElementById("startBtn");
+const btnNL              = document.getElementById("btnNL");
+const btnEN              = document.getElementById("btnEN");
+const educationSection   = document.getElementById("educationSection");
+const educationContent   = document.getElementById("educationContent");
+const experienceSection  = document.getElementById("experienceSection");
+const experienceList     = document.getElementById("experienceList");
+const conversationBlock  = document.getElementById("conversationBlock");
+const contactInfo        = document.getElementById("contactInfo");
+const yesBtn             = document.getElementById("yesBtn");
+const noBtn              = document.getElementById("noBtn");
+
+// Taal-knoppen
+btnNL.addEventListener("click", () => {
+    currentLanguage = "nl";
+    btnNL.classList.add("active");
+    btnEN.classList.remove("active");
+});
+btnEN.addEventListener("click", () => {
+    currentLanguage = "en";
+    btnEN.classList.add("active");
+    btnNL.classList.remove("active");
+});
+
+// Start intro
+startBtn.addEventListener("click", () => {
+    // reset
+    typedText.style.display = "block";
+    typedText.innerHTML = "";
+    educationContent.innerHTML = "";
+    experienceList.innerHTML = "";
+    educationSection.classList.remove("visible");
+    experienceSection.classList.remove("visible");
+    conversationBlock.style.display = "none";
+    contactInfo.style.display = "none";
+    noBtn.style.opacity = 1;
+    noBtn.style.transform = "none";
+    noBtn.style.pointerEvents = "auto";
+
+    startTyping();
+});
+
+function startTyping(){
+    const fullText = currentLanguage === "nl" ? introNL : introEN;
+
+    let i   = 0;
+    let buf = "";
+    let tag = false;
+
+    const loop = setInterval(() => {
+        const ch = fullText[i];
+
+        if (ch === "<") tag = true;
+        if (ch === ">") tag = false;
+
+        buf += ch;
+        typedText.innerHTML = buf;
+
+        i++;
+        if (i >= fullText.length){
+            clearInterval(loop);
+            showEducationAndExperience();
+        }
+    }, 40);
+}
+
+function showEducationAndExperience(){
+    // Set correct titles based on language
+document.getElementById("eduTitle").innerHTML =
+    currentLanguage === "nl" ? "Opleiding" : "Education";
+
+document.getElementById("expTitle").innerHTML =
+    currentLanguage === "nl" ? "Werkervaring" : "Work Experience";
+
+    const eduItems = currentLanguage === "nl" ? educationNL : educationEN;
+    const expItems = currentLanguage === "nl" ? experienceNL : experienceEN;
+
+    // Opleidingen vullen
+    eduItems.forEach(line => {
+        const div = document.createElement("div");
+        div.className = "edu-item";
+        div.innerHTML = "• " + line;
+        educationContent.appendChild(div);
+    });
+    educationSection.classList.add("visible");
+
+    // Werkervaring kaarten opbouwen
+    expItems.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "exp-card";
+        card.innerHTML =
+            "<div class='exp-period'>" + item.period + "</div>" +
+            "<div class='exp-title'>" + item.title + "</div>" +
+            "<div class='exp-company'>" + item.company + "</div>" +
+            "<div class='exp-desc'>" + item.desc + "</div>";
+        experienceList.appendChild(card);
+    });
+    experienceSection.classList.add("visible");
+
+    // Kaarten één voor één laten inschuiven
+    const cards = document.querySelectorAll(".exp-card");
+    cards.forEach((card, index) => {
+        setTimeout(() => {
+            card.classList.add("visible");
+        }, 400 + index * 350);
+    });
+
+   // Na laatste kaart: JA/NEE tonen
+const totalDelay = 400 + cards.length * 350 + 300;
+setTimeout(() => {
+
+    // Toon JA/NEE in juiste taal
+    if (currentLanguage === "nl") {
+        conversationBlock.innerHTML = `
+            Wil je met mij in gesprek?<br><br>
+            <button id="yesBtnDyn" class="btn btn-start">Ja</button>
+            <button id="noBtnDyn" class="btn" style="background:#fff;border:1px solid #ccc">Nee</button>
+        `;
+    } else {
+        conversationBlock.innerHTML = `
+            Would you like to talk to me?<br><br>
+            <button id="yesBtnDyn" class="btn btn-start">Yes</button>
+            <button id="noBtnDyn" class="btn" style="background:#fff;border:1px solid #ccc">No</button>
+        `;
+    }
+
+    conversationBlock.style.display = "block";
+
+    // knoppen opnieuw koppelen
+    const yesBtnDyn = document.getElementById("yesBtnDyn");
+    const noBtnDyn  = document.getElementById("noBtnDyn");
+
+    yesBtnDyn.addEventListener("click", () => {
+        contactInfo.style.display = "block";
+        document.getElementById("downloadCV").style.display = "inline-block";
+        launchClover();
+    });
+
+    noBtnDyn.addEventListener("mouseover", () => {
+        noBtnDyn.style.opacity = 0;
+        noBtnDyn.style.transform = "scale(.4) rotate(10deg)";
+        noBtnDyn.style.pointerEvents = "none";
+    });
+
+}, totalDelay);
+
+}
+
+// JA → contact tonen + confetti + scroll
+yesBtn.addEventListener("click", () => {
+    contactInfo.style.display = "block";
+    launchConfetti();
+    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+});
+
+// NEE → vlucht weg bij hover
+noBtn.addEventListener("mouseover", function(){
+    this.style.opacity = 0;
+    this.style.transform = "scale(.3) rotate(18deg)";
+    this.style.pointerEvents = "none";
+    this.style.transition = ".25s";
+});
+
+// Confetti animatie
+function launchConfetti(){
+    for(let i = 0; i < 40; i++){
+        const el = document.createElement("div");
+        el.innerHTML = "🍀";
+        el.style.position = "fixed";
+        el.style.top = (Math.random() * 90) + "vh";
+        el.style.left = "-80px";
+        el.style.fontSize = "40px"; /* GROTER */
+        el.style.zIndex = 99999;
+        el.style.opacity = 1;
+        el.style.transition = "transform 3s ease-out, opacity 3s ease-out";
+        document.body.appendChild(el);
+
+        setTimeout(() => {
+            el.style.transform = `translateX(${window.innerWidth + 200}px) rotate(${Math.random()*360}deg)`;
+            el.style.opacity = 0;
+        }, 50);
+
+        setTimeout(() => el.remove(), 3000);
+    }
+}
+
+
+</script>
+
+
+
+</body></html>
+
+ 
+ 
+Kind regards,
+ 
+Milena Tjalsma-Otten
+Corporate recruiter IT
+
+06-10566826
+milena.tjalsmaotten@kpn.com
+
+Talent Acquisition
+Rotterdam-Wilhelminakade 123
+ 
+ 
+ 
+    
+
+
+
+
